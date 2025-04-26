@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JANITH GRAPHIC STUDIO PVT(LTD)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+       :root {
+        --primary: #006eff;
+        --secondary: #430f92;
+            --dark: #000000;
+            --darker: #181818;
+            --light: #f5f6fa;
+            --accent: #ae00ff;
+            --text: #fffeec;
+            --text-secondary: #d1d0c1;
+            --blur: 10px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--dark);
+            color: var(--text);
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+          /* Lightning Cursor Effect */
+          .cursor-lightning {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            mix-blend-mode: screen;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.1s;
+        }
+        /* Custom cursor */
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: transparent;
+            border: 2px solid var(--primary-color);
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, border-color 0.2s;
+        }
+
+        .cursor::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            transform: translate(-50%, -50%);
+        }
+
+        .cursor-fx {
+            position: fixed;
+            width: 90px;
+            height: 90px;
+            border-radius: 100%;
+            background: radial-gradient(circle, rgba(119, 46, 255, 0.3) 0%, rgba(58, 142, 237, 0) 70%);
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Header Styles */
+        header {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            padding: 0 10%;
+        }
+
+        .header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('bg.jpg') no-repeat center center/cover;
+            z-index: -1;
+            opacity: 0.2;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            z-index: 1;
+        }
+
+        .header-text {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .header-text h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradientShift 8s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        .header-text p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .header-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .header-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            
+            transition: var(--transition);
+            transform: perspective(1000px) rotateY(15deg);
+        }
+
+        .header-image img:hover {
+            transform: perspective(1000px) rotateY(0deg);
+        }
+        
+       /* Search Bar Styles */
+       .search-wrapper {
+    position: sticky;
+    top: 0;
+    z-index: 99;
+    padding: 15px 0;
+    background: linear-gradient(to bottom, rgba(30, 39, 46, 0.9) 0%, rgba(30, 39, 46, 0.7) 70%, transparent 100%);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+}
+       .search-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 2rem auto;
+    position: sticky;
+    top: 20px;
+    z-index: 99;
+    transition: all 0.3s ease;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    padding: 8px 20px;
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
+    border: 1px solid rgba(0, 102, 255, 0.24);
+    transition: var(--transition);
+    box-shadow: 0 10px 30px rgba(0, 68, 255, 0.2);
+}
+.search-bar:focus-within {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: var(--primary);
+    box-shadow: 0 4px 25px rgba(108, 92, 231, 0.35);
+}
+
+.search-icon {
+    color: var(--text-secondary);
+    margin-right: 12px;
+    font-size: 1rem;
+}
+
+.header-scrolled .search-container {
+    top: 10px;
+    max-width: 500px;
+}
+
+.header-scrolled .search-bar {
+    padding: 5px 15px;
+}
+
+.search-bar:focus-within {
+    box-shadow: 0 10px 30px rgba(134, 92, 231, 0.3);
+    border-color: var(--primary);
+}
+
+#searchInput {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 10px 0;
+    color: var(--text);
+    font-size: 1rem;
+    outline: none;
+}
+
+#searchInput::placeholder {
+    color: var(--text-secondary);
+}
+
+.search-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: var(--transition);
+    padding: 5px 10px;
+    border-radius: 50%;
+}
+
+.search-btn:hover {
+    color: var(--primary);
+    transform: scale(1.1);
+}
+
+/* Search Results Styles */
+.search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: var(--darker);
+    border-radius: 0 0 15px 15px;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 100;
+    display: none;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: none;
+}
+
+.search-results.active {
+    display: block;
+}
+
+.search-result-item {
+    padding: 15px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.search-result-item:hover {
+    background: rgba(108, 92, 231, 0.1);
+}
+
+.search-result-item h4 {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    color: rgb(36, 36, 36);
+}
+
+.search-result-item p {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+/* No results message */
+.no-results {
+    padding: 15px 20px;
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+/* Search highlight */
+.highlight {
+    background: rgba(108, 92, 231, 0.3);
+    padding: 0 2px;
+    border-radius: 2px;
+}
+
+       /* Button Styles */
+       .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: none;
+            margin: 0.5rem;
+            z-index: 1;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 4px 15px rgba(68, 0, 255, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(45deg, var(--accent), #ff1717);
+            color: white;
+            box-shadow: 0 4px 15px rgba(253, 121, 168, 0.4);
+        }
+
+        .btn-whatsapp {
+            background: linear-gradient(45deg, var(--whatsapp), #5eff8f);
+            color: white;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+        }
+
+        .btn-danger {
+            background: linear-gradient(45deg, var(--danger), #ff7675);
+            color: white;
+            box-shadow: 0 4px 15px rgba(214, 48, 49, 0.4);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+            z-index: 1;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+            top: 100%;
+            transition: all 0.5s ease;
+        }
+
+        .btn span {
+            position: relative;
+            z-index: 2;
+        }
+
+        .btn-accent {
+            background: linear-gradient(45deg, var(--accent-color), #059669);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+        /* Social Icons */
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(var(--blur));
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-5px) scale(1.1);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .social-icon.facebook:hover {
+            background: #3b5998;
+        }
+
+        .social-icon.youtube:hover {
+            background: #ff0000;
+        }
+
+        .social-icon.whatsapp:hover {
+            background: var(--whatsapp);
+        }
+
+        .social-icon.linkedin:hover {
+            background: #0077b5;
+        }
+
+       /* Product Section */
+       .section-title {
+            text-align: center;
+            margin: 3rem 0;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            display: inline-block;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--primary));
+            border-radius: 3px;
+        }
+
+        .products-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 0 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Product Card */
+        .product-card {
+            background: rgba(26, 26, 26, 0.7);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(8, 3, 78, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            backdrop-filter: blur(var(--blur));
+            border: 1px solid rgba(140, 0, 255, 0.1);
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), 
+                                      rgba(255, 255, 255, 0.1) 0%, 
+                                      transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .product-card:hover::before {
+            opacity: 1;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(0, 89, 255, 0.774);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.1);
+        }
+
+        .product-code {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 0.3rem 0.6rem;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: rgb(255, 255, 255);
+        }
+
+        .product-content {
+            padding: 1.5rem;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .product-description {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+        /* Booking Section */
+        .booking-section {
+            background: radial-gradient(circle, rgba(2, 6, 255, 0.3) 0%, rgba(207, 253, 39, 0) 70%);
+            padding: 4rem 2rem;
+            margin-top: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .booking-container {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .booking-image {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .booking-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+           animation: float 6s ease-in-out infinite;
+        }
+
+        .booking-content {
+            flex: 1;
+            min-width: 300px;
+            padding: 2rem;
+        }
+
+        .booking-content h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--accent), var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradientShift 5s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        .booking-content p {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        /* Floating Elements */
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .floating-element {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            filter: blur(30px);
+            animation: float 15s infinite linear;
+        }
+
+        /* Fixed Buttons */
+        .fixed-buttons {
+            position: fixed;
+            right: 30px;
+            bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        .whatsapp-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--whatsapp);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            animation: pulse 2s infinite;
+            text-decoration: none;
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.6);
+        }
+
+        .back-to-top {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(var(--blur));
+            color: rgb(0, 102, 255);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+        }
+
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .cart-btn {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgb(241, 250, 158);
+            font-size: 1.5rem;
+            box-shadow: 0 10px 25px rgba(255, 0, 0, 0.4);
+            cursor: pointer;
+            z-index: 100;
+            transition: var(--transition);
+        }
+
+        .cart-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 25px;
+            height: 25px;
+            background: red;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+
+        /* Popup Styles */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .popup-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .popup-container {
+            background: radial-gradient(circle, rgba(3, 7, 68, 0.411) 0%, rgba(10, 2, 31, 0.527) 70%);
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 2rem;
+            box-shadow: 0 20px 50px rgba(4, 57, 136, 0.5);
+            position: relative;
+            border: 1px solid rgba(208, 255, 0, 0.349);
+            transform: translateY(50px);
+            transition: var(--transition);
+            max-height: 80vh;
+            overflow-y: auto;
+            backdrop-filter: blur(var(--blur));
+        }
+
+        .popup-overlay.active .popup-container {
+            transform: translateY(0);
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .popup-close:hover {
+            background: var(--accent);
+            transform: rotate(90deg);
+        }
+
+        .popup-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: white;
+            text-align: center;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* Cart Popup */
+        .cart-items {
+            margin-bottom: 2rem;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .cart-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .cart-item-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .cart-item-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .cart-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cart-item-details h4 {
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .cart-item-details p {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .cart-item-remove {
+            background: rgba(214, 48, 49, 0.2);
+            color: var(--danger);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cart-item-remove:hover {
+            background: var(--danger);
+            color: white;
+        }
+
+        .cart-total {
+            text-align: right;
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+        }
+
+        .cart-actions {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+         /* Booking Form */
+        .booking-form {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: rgb(0, 74, 172);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.3);
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .error-message {
+            color: var(--danger);
+            font-size: 0.8rem;
+            margin-top: 0.3rem;
+            display: none;
+        }
+
+        /* Animations */
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        @keyframes itemAdded {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .header-content, .booking-container {
+                flex-direction: column;
+            }
+
+            .header-text, .booking-content {
+                text-align: center;
+                margin-bottom: 2rem;
+            }
+
+            .social-icons {
+                justify-content: center;
+            }
+
+            .products-container {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+
+            .popup-container {
+                width: 95%;
+                padding: 1.5rem;
+            }
+
+            .cart-actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-text h1 {
+                font-size: 2rem;
+            }
+
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+
+            .products-container {
+                grid-template-columns: 1fr;
+            }
+
+            .fixed-buttons {
+                right: 15px;
+                bottom: 15px;
+            }
+
+            .whatsapp-btn, .cart-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-fx"></div>
+    <!-- Lightning Cursor Effect -->
+    <div class="cursor-lightning"></div>
+
+    <!-- Header Section -->
+    <header>
+        <div class="header-bg"></div>
+        <div class="header-content">
+        <div class="floating-elements">
+            <div class="floating-element" style="width: 200px; height: 200px; top: 10%; left: 5%; animation-delay: 0s;"></div>
+            <div class="floating-element" style="width: 150px; height: 150px; top: 70%; left: 80%; animation-delay: 2s;"></div>
+            <div class="floating-element" style="width: 100px; height: 100px; top: 40%; left: 60%; animation-delay: 4s;"></div>
+        </div>
+        
+        <div class="header-content">
+            <div class="header-text">
+                <h1>Welcome To<br>JANITH GRAPHIC STUDIO <span style="font-size: 0.8em;">PVT(LTD)</span></h1>
+                <p>Welcome to Janith Graphic Studio, your go-to destination for high quality graphic design, web design, and print design services. Our team of experts is dedicated to delivering visually stunning, impactful designs that help your brand stand out.</p>
+                
+                <div class="btn-group">
+                    <a href="https://sites.google.com/view/sinha-ai/ai-tools" target="_blank" class="btn btn-primary">Try it SINHA AI</a>
+                    <a href="https://sites.google.com/view/jgssoftware/home" target="_blank" class="btn btn-secondary">Free Education</a>
+                </div>
+                
+                <div class="social-icons">
+                    <div class="social-icon facebook" onclick="window.open('https://www.facebook.com/janithgraphicstudio.eblog?_rdc=1&_rdr#')" target="_blank">
+                        <i class="fab fa-facebook-f"></i>
+                    </div>
+                    <div class="social-icon youtube" onclick="window.open('https://www.youtube.com/channel/UCihEwYPV1pACRyi0fJlboRQ', '_blank')" target="_blank">
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                    <div class="social-icon whatsapp" onclick="window.open('https://www.whatsapp.com/catalog/94702001859/?app_absent=0',)" target="_blank">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <div class="social-icon linkedin" onclick="window.open('https://www.linkedin.com/in/janitha-athma-herath-a7a3ba271/', '_blank')" target="_blank">
+                        <i class="fab fa-linkedin-in"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="header-image">
+                <img src="s.png" alt="Janith Graphic Studio">
+            </div>
+        </div>
+    </header>
+
+    <!-- Products Section -->
+    <section class="products-section">
+        <div class="search-container">
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search services...">
+                <button class="search-btn"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="search-results"></div>
+        </div>
+        <div class="section-title">
+            <h2>Our Services</h2>
+        </div>
+        
+        <div class="products-container" id="productsContainer">
+            <!-- Product cards will be generated by JavaScript -->
+        </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section class="booking-section">
+        <div class="floating-elements">
+            <div class="floating-element" style="width: 150px; height: 150px; top: 20%; left: 70%; animation-delay: 1s;"></div>
+            <div class="floating-element" style="width: 120px; height: 120px; top: 60%; left: 20%; animation-delay: 3s;"></div>
+        </div>
+        
+        <div class="booking-container">
+            <div class="booking-image">
+                <img src="help.png" alt="Booking Help">
+            </div>
+            
+            <div class="booking-content">
+                <h2 class="animated-text">Book Free Consultation Services</h2>
+                <p>Get expert advice and guidance for your design needs. Our team is ready to help you create stunning visuals that represent your brand perfectly. Book a free consultation session today!</p>
+                <button class="btn btn-primary" id="bookNowBtn">Booking Now</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Button -->
+    <div class="cart-btn" id="cartBtn">
+        <i class="fas fa-shopping-cart"></i>
+        <div class="cart-count" id="cartCount" style="display: none;">0</div>
+    </div>
+
+    <!-- Fixed Buttons -->
+    <div class="fixed-buttons">
+        <a href="https://wa.me/94702001859" target="_blank" class="whatsapp-btn">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        <div class="back-to-top" id="backToTop">
+            <i class="fas fa-arrow-up"></i>
+        </div>
+    </div>
+
+    <!-- Cart Popup -->
+    <div class="popup-overlay" id="cartPopup">
+        <div class="popup-container">
+            <div class="popup-close" id="closeCartPopup">
+                <i class="fas fa-times"></i>
+            </div>
+            <h2 class="popup-title">Your Selected Services</h2>
+            
+            <div class="cart-items" id="cartItems">
+                <!-- Cart items will be added here by JavaScript -->
+                <div class="empty-cart-message" style="text-align: center; padding: 2rem; color: rgba(255,255,255,0.5);">
+                    <i class="fas fa-shopping-cart" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                    <p>Your cart is empty</p>
+                </div>
+            </div>
+            
+            <div class="cart-total" id="cartTotal" style="display: none;">
+                Total Services: <span id="totalServices">0</span>
+            </div>
+            
+            <div class="cart-actions" id="cartActions" style="display: none;">
+                <button class="btn btn-whatsapp" id="checkoutBtn">Buy Service</button>
+                <button class="btn btn-danger" id="clearCartBtn">Clear All</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Popup -->
+    <div class="popup-overlay" id="bookingPopup">
+        <div class="popup-container">
+            <div class="popup-close" id="closeBookingPopup">
+                <i class="fas fa-times"></i>
+            </div>
+            <h2 class="popup-title">Book Your Consultation</h2>
+            
+            <form class="booking-form" id="bookingForm">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" class="form-control" placeholder="Enter your full name" required>
+                    <div class="error-message" id="nameError"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input type="text" id="address" class="form-control" placeholder="Enter your address" required>
+                    <div class="error-message" id="addressError"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" class="form-control" placeholder="Enter your phone number" required>
+                    <div class="error-message" id="phoneError"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="date">Date of Booking</label>
+                    <input type="date" id="date" class="form-control" required>
+                    <div class="error-message" id="dateError"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="time">Time</label>
+                    <select id="time" class="form-control" required>
+                        <option value="">Select a time</option>
+                        <option value="08:00-10:00">08:00 AM - 10:00 AM</option>
+                        <option value="10:00-12:00">10:00 AM - 12:00 PM</option>
+                        <option value="12:00-14:00">12:00 PM - 02:00 PM</option>
+                        <option value="14:00-16:00">02:00 PM - 04:00 PM</option>
+                        <option value="16:00-18:00">04:00 PM - 06:00 PM</option>
+                        <option value="18:00-20:00">06:00 PM - 08:00 PM</option>
+                        <option value="20:00-22:00">08:00 PM - 10:00 PM</option>
+                    </select>
+                    <div class="error-message" id="timeError"></div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Checking Date</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Products Data
+        const products = [
+            { id: 'JGSPO20', title: 'Logo Design', image: '1.jpg', 
+              description: 'Professional logo design that represents your brand identity with unique and memorable visuals.' },
+            { id: 'JGSPO21', title: 'Social Media Post Design', image: '3.jpg', 
+              description: 'Eye-catching social media posts to engage your audience and boost your online presence.' },
+            { id: 'JGSPO22', title: 'Social Media Cover Design', image: '2.jpg', 
+              description: 'Stunning cover images for your social media profiles that make a great first impression.' },
+            { id: 'JGSPO23', title: 'Cover Page Design', image: '4.jpg', 
+              description: 'Beautiful cover designs for magazines, books, reports and other publications.' },
+            { id: 'JGSPO24', title: 'Banner Design', image: '6.jpg', 
+              description: 'Attractive banners for websites, events and advertising with high visual impact.' },
+            { id: 'JGSPO25', title: 'Package Design', image: '9.jpg', 
+              description: 'Creative packaging solutions that make your product stand out on the shelves.' },
+            { id: 'JGSPO26', title: 'Invitation Card Design', image: '10.jpg', 
+              description: 'Elegant invitation cards for weddings, parties and special events.' },
+            { id: 'JGSPO27', title: 'Leaflet Design', image: '5.jpg', 
+              description: 'Effective leaflet designs that communicate your message clearly and attractively.' },
+            { id: 'JGSPO28', title: 'Business Card Design', image: '8.jpg', 
+              description: 'Professional business cards that leave a lasting impression of your brand.' },
+            { id: 'JGSPO29', title: 'Audio Editing', image: '11.jpg', 
+              description: 'High-quality audio editing services for podcasts, music and voice recordings.' },
+            { id: 'JGSPO30', title: 'Photo Editing', image: '12.jpg', 
+              description: 'Professional photo retouching, color correction and enhancement services.' },
+            { id: 'JGSPO31', title: 'Video Editing', image: '13.jpg', 
+              description: 'Expert video editing to create compelling visual stories for your audience.' },
+            { id: 'JGSPO32', title: 'UI / UX Design', image: '14.jpg', 
+              description: 'User-centered interface designs that provide seamless digital experiences.' },
+            { id: 'JGSPO33', title: 'Home Design', image: '15.jpg', 
+              description: 'Architectural and interior design solutions for residential spaces.' },
+            { id: 'JGSPO34', title: 'Software Development', image: '16.jpg', 
+              description: 'Custom software solutions tailored to your business needs and requirements.' },
+            { id: 'JGSPO35', title: 'Computer Repairing', image: '17.jpg', 
+              description: 'Professional computer repair and maintenance services to keep your systems running smoothly.' },
+            { id: 'JGSPO36', title: 'YouTube Thumbnail Design', image: '7.jpg', 
+              description: 'Click-worthy YouTube thumbnails that increase views. Designed to stand out in search results.' }
+        ];
+
+        // DOM Elements
+        const productsContainer = document.getElementById('productsContainer');
+        const cartBtn = document.getElementById('cartBtn');
+        const cartCount = document.getElementById('cartCount');
+        const cartPopup = document.getElementById('cartPopup');
+        const closeCartPopup = document.getElementById('closeCartPopup');
+        const cartItems = document.getElementById('cartItems');
+        const cartTotal = document.getElementById('cartTotal');
+        const totalServices = document.getElementById('totalServices');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+        const clearCartBtn = document.getElementById('clearCartBtn');
+        const cartActions = document.getElementById('cartActions');
+        const bookNowBtn = document.getElementById('bookNowBtn');
+        const bookingPopup = document.getElementById('bookingPopup');
+        const closeBookingPopup = document.getElementById('closeBookingPopup');
+        const bookingForm = document.getElementById('bookingForm');
+        const backToTop = document.getElementById('backToTop');
+        const cursorLightning = document.querySelector('.cursor-lightning');
+
+        // Initialize cart from localStorage
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Generate product cards
+        function generateProducts() {
+            productsContainer.innerHTML = '';
+            
+            products.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                
+                productCard.innerHTML = `
+                    <div class="product-image">
+                        <img src="${product.image}" alt="${product.title}">
+                        <div class="product-code">${product.id}</div>
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-title">${product.title}</h3>
+                        <p class="product-description">${product.description}</p>
+                        <button class="btn btn-primary add-to-cart" data-id="${product.id}">Buy Service</button>
+                    </div>
+                `;
+                
+                productsContainer.appendChild(productCard);
+            });
+            // Search functionality
+            const header = document.querySelector('header');
+const searchContainer = document.querySelector('.search-container');
+
+window.addEventListener('scroll', () => {
+    if (window.scrollY > header.offsetHeight) {
+        document.body.classList.add('header-scrolled');
+        searchContainer.style.backdropFilter = 'blur(10px)';
+        searchContainer.style.backgroundColor = 'rgba(30, 39, 46, 0.8)';
+    } else {
+        document.body.classList.remove('header-scrolled');
+        searchContainer.style.backdropFilter = '';
+        searchContainer.style.backgroundColor = '';
+    }
+});
+const searchInput = document.querySelector('#searchInput');
+const searchBtn = document.querySelector('.search-btn');
+const productsGrid = document.querySelector('.products-grid');
+const productCards = document.querySelectorAll('.product-card');
+
+searchBtn.addEventListener('click', handleSearch);
+searchInput.addEventListener('keyup', (e) => {
+    if (e.key === 'Enter') {
+        handleSearch();
+    }
+});
+
+function handleSearch() {
+    const query = searchInput.value.toLowerCase().trim();
+    let hasResults = false;
+
+    productCards.forEach(card => {
+        const title = card.querySelector('.product-title').textContent.toLowerCase();
+        const description = card.querySelector('.product-description').textContent.toLowerCase();
+
+        if (title.includes(query) || description.includes(query)) {
+            card.style.display = 'block';
+            hasResults = true;
+        } else {
+            card.style.display = 'none';
+        }
+    });
+
+    if (!hasResults) {
+        productsGrid.innerHTML = '<p class="no-results">No results found</p>';
+    } else {
+        document.querySelector('.no-results')?.remove();
+    }
+}
+            
+            // Add mouse move effect to cards
+            const cards = document.querySelectorAll('.product-card');
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    card.style.setProperty('--mouse-x', `${x}px`);
+                    card.style.setProperty('--mouse-y', `${y}px`);
+                });
+            });
+        }
+         // Lightning Cursor Effect
+         const cursor = document.querySelector('.cursor');
+    const cursorFx = document.querySelector('.cursor-fx');
+        
+         // Custom cursor movement
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+        cursorFx.style.left = e.clientX + 'px';
+        cursorFx.style.top = e.clientY + 'px';
+         // Lightning effect on fast movement
+         if (e.movementX > 10 || e.movementY > 10) {
+            createLightning(e.clientX, e.clientY);
+        }
+    });
+    
+    // Lightning effect function
+    function createLightning(x, y) {
+        const lightning = document.createElement('div');
+        lightning.classList.add('lightning');
+        document.body.appendChild(lightning);
+        
+        // Random size and rotation
+        const width = Math.random() * 100 + 50;
+        const height = Math.random() * 10 + 5;
+        const rotation = Math.random() * 360;
+        
+        // Position the lightning
+        lightning.style.width = `${width}px`;
+        lightning.style.height = `${height}px`;
+        lightning.style.left = `${x - width/2}px`;
+        lightning.style.top = `${y - height/2}px`;
+        lightning.style.transform = `rotate(${rotation}deg)`;
+        lightning.style.opacity = '0.8';
+        
+        // Animate and remove
+        setTimeout(() => {
+            lightning.style.opacity = '0';
+            setTimeout(() => {
+                lightning.remove();
+            }, 300);
+        }, 50);
+    }
+    // Update cart count
+        function updateCartCount() {
+            const count = cart.length;
+            if (count > 0) {
+                cartCount.textContent = count;
+                cartCount.style.display = 'flex';
+                cartTotal.style.display = 'block';
+                cartActions.style.display = 'flex';
+                document.querySelector('.empty-cart-message').style.display = 'none';
+                totalServices.textContent = count;
+            } else {
+                cartCount.style.display = 'none';
+                cartTotal.style.display = 'none';
+                cartActions.style.display = 'none';
+                document.querySelector('.empty-cart-message').style.display = 'block';
+            }
+        }
+
+        // Render cart items
+        function renderCartItems() {
+            cartItems.innerHTML = '';
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = `
+                    <div class="empty-cart-message" style="text-align: center; padding: 2rem; color: rgba(255,255,255,0.5);">
+                        <i class="fas fa-shopping-cart" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                        <p>Your cart is empty</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            cart.forEach((item, index) => {
+                const product = products.find(p => p.id === item.id);
+                
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.innerHTML = `
+                    <div class="cart-item-info">
+                        <div class="cart-item-image">
+                            <img src="${product.image}" alt="${product.title}">
+                        </div>
+                        <div class="cart-item-details">
+                            <h4>${product.title}</h4>
+                            <p>Code: ${item.id} | Added: ${item.date} at ${item.time}</p>
+                        </div>
+                    </div>
+                    <div class="cart-item-remove" data-index="${index}">
+                        <i class="fas fa-times"></i>
+                    </div>
+                `;
+                
+                cartItems.appendChild(cartItem);
+            });
+            
+            // Add event listeners to remove buttons
+            document.querySelectorAll('.cart-item-remove').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    cart.splice(index, 1);
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    renderCartItems();
+                    updateCartCount();
+                });
+            });
+        }
+
+        // Add to cart animation
+        function animateAddToCart(button) {
+            const buttonRect = button.getBoundingClientRect();
+            const cartRect = cartBtn.getBoundingClientRect();
+            
+            const animationElement = document.createElement('div');
+            animationElement.className = 'add-to-cart-animation';
+            animationElement.innerHTML = '+1';
+            animationElement.style.position = 'fixed';
+            animationElement.style.left = `${buttonRect.left + buttonRect.width/2}px`;
+            animationElement.style.top = `${buttonRect.top}px`;
+            animationElement.style.color = 'var(--accent)';
+            animationElement.style.fontWeight = 'bold';
+            animationElement.style.pointerEvents = 'none';
+            animationElement.style.zIndex = '10000';
+            animationElement.style.transform = 'translate(-50%, -50%)';
+            animationElement.style.animation = 'itemAdded 0.5s ease';
+            
+            document.body.appendChild(animationElement);
+            
+            const animation = animationElement.animate([
+                { 
+                    left: `${buttonRect.left + buttonRect.width/2}px`,
+                    top: `${buttonRect.top}px`,
+                    opacity: 1,
+                    transform: 'translate(-50%, -50%) scale(1)'
+                },
+                { 
+                    left: `${cartRect.left + cartRect.width/2}px`,
+                    top: `${cartRect.top + cartRect.height/2}px`,
+                    opacity: 0,
+                    transform: 'translate(-50%, -50%) scale(0.5)'
+                }
+            ], {
+                duration: 800,
+                easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)'
+            });
+            
+            animation.onfinish = () => {
+                animationElement.remove();
+                cartCount.style.animation = 'none';
+                void cartCount.offsetWidth; // Trigger reflow
+                cartCount.style.animation = 'bounce 0.5s ease';
+            };
+        }
+
+        // Check for restricted dates (Sundays, government holidays, poya days)
+        function isRestrictedDate(date) {
+            const day = date.getDay(); // 0 is Sunday
+            const dateStr = date.toISOString().split('T')[0];
+            
+            // Check if Sunday
+            if (day === 0) return true;
+            
+            // Add your specific holiday dates here (format: 'YYYY-MM-DD')
+            const holidays = [
+                '2023-01-04', // Example holiday
+                '2023-02-04', // Example holiday
+                // Add all government and poya holidays for the year
+            ];
+            
+            return holidays.includes(dateStr);
+        }
+
+        // Check for restricted time (8 AM - 10 PM)
+        function isRestrictedTime(time) {
+            const [start, end] = time.split('-');
+            const startHour = parseInt(start.split(':')[0]);
+            const endHour = parseInt(end.split(':')[0]);
+            
+            return startHour < 8 || endHour > 22;
+        }
+
+        // Format date to display
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            return date.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'short', 
+                day: 'numeric' 
+            });
+        }
+
+        // Initialize the page
+        function init() {
+            generateProducts();
+            updateCartCount();
+            
+            // Add to cart event listeners
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('add-to-cart') || e.target.parentElement.classList.contains('add-to-cart')) {
+                    const button = e.target.classList.contains('add-to-cart') ? e.target : e.target.parentElement;
+                    const productId = button.getAttribute('data-id');
+                    const product = products.find(p => p.id === productId);
+                    
+                    if (product) {
+                        const now = new Date();
+                        const cartItem = {
+                            id: product.id,
+                            title: product.title,
+                            date: formatDate(now),
+                            time: now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
+                        };
+                        
+                        cart.push(cartItem);
+                        localStorage.setItem('cart', JSON.stringify(cart));
+                        
+                        animateAddToCart(button);
+                        updateCartCount();
+                    }
+                }
+            });
+            
+            // Cart button click
+            cartBtn.addEventListener('click', function() {
+                renderCartItems();
+                cartPopup.classList.add('active');
+            });
+            
+            // Close cart popup
+            closeCartPopup.addEventListener('click', function() {
+                cartPopup.classList.remove('active');
+            });
+            
+            // Checkout button click
+            checkoutBtn.addEventListener('click', function() {
+                if (cart.length === 0) return;
+                
+                const now = new Date();
+                const dateTime = now.toLocaleString('en-US');
+                
+                let message = "Hello! Welcome To JANITH GRAPHIC STUDIO Buy Product Service.\n\n";
+                message += "I would like to purchase the following services:\n\n";
+                
+                cart.forEach(item => {
+                    message += `- ${item.title} (Code: ${item.id}, Added: ${item.date} at ${item.time})\n`;
+                });
+                
+                message += `\nTotal Services: ${cart.length}\n`;
+                message += `Inquiry Date: ${dateTime}\n\n`;
+                message += "Please let me know the next steps. Thank you!";
+                
+                const encodedMessage = encodeURIComponent(message);
+                window.open(`https://wa.me/94702001859?text=${encodedMessage}`, '_blank');
+            });
+            
+            // Clear cart button click
+            clearCartBtn.addEventListener('click', function() {
+                cart = [];
+                localStorage.setItem('cart', JSON.stringify(cart));
+                renderCartItems();
+                updateCartCount();
+            });
+            
+            // Book now button click
+            bookNowBtn.addEventListener('click', function() {
+                bookingPopup.classList.add('active');
+            });
+            
+            // Close booking popup
+            closeBookingPopup.addEventListener('click', function() {
+                bookingPopup.classList.remove('active');
+            });
+            
+            // Booking form submission
+            bookingForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Reset errors
+                document.querySelectorAll('.error-message').forEach(el => {
+                    el.style.display = 'none';
+                });
+                
+                // Get form values
+                const name = document.getElementById('name').value.trim();
+                const address = document.getElementById('address').value.trim();
+                const phone = document.getElementById('phone').value.trim();
+                const date = document.getElementById('date').value;
+                const time = document.getElementById('time').value;
+                
+                // Validate form
+                let isValid = true;
+                
+                if (!name) {
+                    document.getElementById('nameError').textContent = 'Please enter your name';
+                    document.getElementById('nameError').style.display = 'block';
+                    isValid = false;
+                }
+                
+                if (!address) {
+                    document.getElementById('addressError').textContent = 'Please enter your address';
+                    document.getElementById('addressError').style.display = 'block';
+                    isValid = false;
+                }
+                
+                if (!phone || !/^\d{10}$/.test(phone)) {
+                    document.getElementById('phoneError').textContent = 'Please enter a valid 10-digit phone number';
+                    document.getElementById('phoneError').style.display = 'block';
+                    isValid = false;
+                }
+                
+                if (!date) {
+                    document.getElementById('dateError').textContent = 'Please select a date';
+                    document.getElementById('dateError').style.display = 'block';
+                    isValid = false;
+                } else {
+                    const selectedDate = new Date(date);
+                    if (isRestrictedDate(selectedDate)) {
+                        document.getElementById('dateError').textContent = 'Sorry, we are not available on Sundays, government holidays or poya days. Please select another date.';
+                        document.getElementById('dateError').style.display = 'block';
+                        isValid = false;
+                    }
+                }
+                
+                if (!time) {
+                    document.getElementById('timeError').textContent = 'Please select a time';
+                    document.getElementById('timeError').style.display = 'block';
+                    isValid = false;
+                } else if (isRestrictedTime(time)) {
+                    document.getElementById('timeError').textContent = 'Our working hours are 8 AM to 10 PM. Please select a time within this range.';
+                    document.getElementById('timeError').style.display = 'block';
+                    isValid = false;
+                }
+                
+                if (!isValid) return;
+                
+                // Prepare WhatsApp message
+                const formattedDate = new Date(date).toLocaleDateString('en-US', { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                });
+                
+                let message = "Hello! Welcome To JANITH GRAPHIC STUDIO.\n\n";
+                message += "I would like to book a consultation with the following details:\n\n";
+                message += `Name: ${name}\n`;
+                message += `Address: ${address}\n`;
+                message += `Phone: ${phone}\n`;
+                message += `Date: ${formattedDate}\n`;
+                message += `Time: ${time}\n\n`;
+                message += "Please confirm my booking. Thank you!";
+                
+                const encodedMessage = encodeURIComponent(message);
+                window.open(`https://wa.me/94702001859?text=${encodedMessage}`, '_blank');
+                
+                // Close popup
+                bookingPopup.classList.remove('active');
+                bookingForm.reset();
+            });
+            
+            // Back to top button
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTop.classList.add('active');
+                } else {
+                    backToTop.classList.remove('active');
+                }
+            });
+            
+            backToTop.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Lightning cursor effect
+            document.addEventListener('mousemove', function(e) {
+                cursorLightning.style.left = `${e.clientX}px`;
+                cursorLightning.style.top = `${e.clientY}px`;
+                cursorLightning.style.opacity = '1';
+                
+                setTimeout(() => {
+                    cursorLightning.style.opacity = '0';
+                }, 100);
+            });
+            
+            // Close popups when clicking outside
+            [cartPopup, bookingPopup].forEach(popup => {
+                popup.addEventListener('click', function(e) {
+                    if (e.target === popup) {
+                        popup.classList.remove('active');
+                    }
+                });
+            });
+        }
+
+        // Initialize the application
+        init();
+    </script>
+</body>
+</html>
